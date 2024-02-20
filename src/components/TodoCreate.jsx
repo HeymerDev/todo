@@ -1,0 +1,41 @@
+import PropTypes from "prop-types";
+import { useState } from "react";
+
+const TodoCreate = ({ createTodo }) => {
+  const [title, setTitle] = useState("");
+
+  const hadleSubmitTodo = (e) => {
+    e.preventDefault();
+
+    if (!title.trim()) {
+      return setTitle("");
+    }
+
+    createTodo(title);
+    setTitle("");
+  };
+
+  return (
+    <>
+      <form
+        onSubmit={hadleSubmitTodo}
+        className="flex bg-white rounded-md overflow-hidden py-4 gap-4 items-center px-4"
+      >
+        <span className="rounded-full border-2 h-5 w-5 inline-block"></span>
+        <input
+          type="text"
+          placeholder="create a new todo"
+          className="w-full text-gray-600 outline-none"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </form>
+    </>
+  );
+};
+
+TodoCreate.propTypes = {
+  createTodo: PropTypes.func.isRequired,
+};
+
+export default TodoCreate;
