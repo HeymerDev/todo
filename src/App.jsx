@@ -57,10 +57,10 @@ function App() {
   const handleFilter = (filter) => setFilter(filter);
 
   return (
-    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] transition-all duration-1000">
+    <div className="bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain bg-gray-300 min-h-screen dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] transition-all duration-1000 md:bg-[url('./assets/images/bg-desktop-light.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')]">
       <Header />
 
-      <main className="container mx-auto px-4 mt-8">
+      <main className="container mx-auto px-4 mt-8 md:max-w-2xl">
         <TodoCreate createTodo={handleCreateTodo} />
 
         <TodoList
@@ -73,9 +73,9 @@ function App() {
           itemsLeft={computedItemsLeft}
           clearCompleted={clearCompleted}
         />
-      </main>
 
-      <TodoFilter handleFilter={handleFilter} filter={filter} />
+        <TodoFilter handleFilter={handleFilter} filter={filter} />
+      </main>
 
       <footer className="text-center mt-8 dark:text-gray-400 transition-all duration-1000">
         Drag and drop
