@@ -1,18 +1,36 @@
+import { Droppable, Draggable } from "@hello-pangea/dnd";
+
 import PropTypes from "prop-types";
 import TodoItem from "./TodoItem";
 
 const TodoList = ({ todos, deleteTodo, updateTodo }) => {
   return (
-    <div className="bg-white rounded-t-md mt-8 dark:bg-gray-800 transition-all duration-1000">
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          deleteTodo={deleteTodo}
-          updateTodo={updateTodo}
-        />
-      ))}
-    </div>
+    <Droppable droppableId="todos">
+      {(dropProvider) => (
+        <div
+          ref={dropProvider.innerRef}
+          {...dropProvider.droppableProps}
+          className="bg-white rounded-t-md mt-8 dark:bg-gray-800 transition-all duration-1000"
+        >
+          {todos.map((todo, i) => (
+            <Draggable key={todo.id} draggableId={`${todo.id}`} index={i}>
+              {(dragProvider) => (
+                <TodoItem
+                  ref={dragProvider.innerRef}
+                  {...dragProvider.draggableProps}
+                  {...dragProvider.dragHandleProps}
+                  todo={todo}
+                  deleteTodo={deleteTodo}
+                  updateTodo={updateTodo}
+                />
+              )}
+            </Draggable>
+          ))}
+
+          {dropProvider.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 };
 
